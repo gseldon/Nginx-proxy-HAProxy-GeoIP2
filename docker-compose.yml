@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  happroxy:
+    build: ./docker/happroxy/
+    ports: 
+      - 8081:80
+
+  nginx01:
+    build:
+      context: ./docker/proxy
+      args:
+        - NODE=01
+
+  nginx02:
+    build: 
+      context: ./docker/proxy
+      args:
+        - NODE=02
+    
+networks:
+  balance:
