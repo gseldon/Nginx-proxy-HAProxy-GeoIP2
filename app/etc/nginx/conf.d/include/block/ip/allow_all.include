@@ -1,0 +1,3 @@
+#Общий список блокировок
+include /etc/nginx/conf.d/config/null/ips/deny_ip.conf;
+allow all;

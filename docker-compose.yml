@@ -1,22 +1,66 @@
 version: '3.8'
 
+volumes:
+  certificates: {}
+
+x-log: &logging
+  logging:
+    driver: "json-file"
+    options:
+      max-size: "10m"
+      max-file: "10"
+
+x-nginx: &nginx
+    environment:
+      - TZ=Europe/Moscow
+    depends_on:
+      - certificate_manager
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    volumes:
+      - certificates:/etc/ssl/wildcard:ro
+      - ./app/etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./app/etc/nginx/conf.d/:/etc/nginx/conf.d/:ro
+    command: "/bin/sh -c 'while :; do sleep 1m & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
 services:
   happroxy:
     build: ./docker/happroxy/
     ports: 
-      - 8081:80
+      - 80:80
+      - 443:443
+    depends_on:
+      - nginx01
+      - nginx02
+    # depends_on:
+      # nginx01:
+        # condition: service_healthy
+      # nginx02:
+        # condition: service_healthy
 
   nginx01:
     build:
       context: ./docker/proxy
       args:
         - NODE=01
+    <<: *nginx
 
   nginx02:
     build: 
       context: ./docker/proxy
       args:
         - NODE=02
-    
-networks:
-  balance:
+    <<: *nginx
+  
+  certificate_manager:
+    image: gseldon/yc_certificate_manager_get
+    environment:
+      - TZ=Europe/Moscow
+    volumes:
+      - certificates:/certificate_folder
+      - ./docker/certificate_manager/setting.py:/app/setting.py:ro
+      - ./docker/certificate_manager/service_private_key.pem:/app/service_private_key.pem:ro

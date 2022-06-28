@@ -1,0 +1,4 @@
+# Enter the block list if necessary.
+# Example:
+# deny 1.1.1.1/32
+# deny 1.0.0.0/24

@@ -1,0 +1,7 @@
+map $geoip_country_code $allowed_country {
+    default no;
+    RU yes;
+    BY yes;
+    UZ yes;
+    KZ yes;
+}
