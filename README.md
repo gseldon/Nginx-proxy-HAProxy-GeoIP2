@@ -2,7 +2,7 @@
 
 Задача, подготовить новую конфигурации для nginx и работа с сертификатами с Яндекса.
 
-https://wiki.dieg.info/geoip_nginx
+[Установка модуля GeoIP2 Nginx с новым форматом базы MaxMind](https://wiki.dieg.info/geoip_nginx)
 
 https://www.digitalocean.com/community/tools/nginx
 

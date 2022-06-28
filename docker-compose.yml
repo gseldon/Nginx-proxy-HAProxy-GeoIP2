@@ -37,9 +37,9 @@ services:
       - nginx01
       - nginx02
     # depends_on:
-      # nginx01:
-        # condition: service_healthy
-      # nginx02:
+    #   nginx01:
+    #     # condition: service_healthy
+    #   nginx02:
         # condition: service_healthy
 
   nginx01:

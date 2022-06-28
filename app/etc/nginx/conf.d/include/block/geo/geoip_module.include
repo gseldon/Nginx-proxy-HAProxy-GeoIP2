@@ -1,0 +1,28 @@
+geoip2 /usr/share/nginx/GeoLite2-Country.mmdb {
+        $geoip2_data_country_iso_code country iso_code;
+        $geoip2_data_continent_code   continent code;
+    }
+
+geoip2 /usr/share/nginx/GeoLite2-City.mmdb {
+    $geoip2_data_city_name   city names en;
+    $geoip2_data_postal_code postal code;
+    $geoip2_data_latitude    location latitude;
+    $geoip2_data_longitude   location longitude;
+    $geoip2_data_state_name  subdivisions 0 names en;
+    $geoip2_data_state_code  subdivisions 0 iso_code;
+}
+    map $geoip2_data_country_iso_code $lan_ip {
+        default no;
+        192.168.0.0/16 yes;
+        172.16.0.0/16 yes;
+        10.0.0.0/16 yes;
+    }
+
+    map $geoip2_data_country_iso_code $allowed_country {
+        default no;
+        '' yes;
+        RU yes;
+        BY yes;
+        UZ yes;
+        KZ yes;
+    }
