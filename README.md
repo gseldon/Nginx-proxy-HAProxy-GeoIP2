@@ -1,3 +1,5 @@
+[![Codacy Security Scan](https://github.com/gseldon/Nginx-proxy-HAProxy-GeoIP2/actions/workflows/codacy.yml/badge.svg)](https://github.com/gseldon/Nginx-proxy-HAProxy-GeoIP2/actions/workflows/codacy.yml)
+
 # HAProxy + Nginx + GeoIP2 LoadBalancer
 
 Задача проекта:
